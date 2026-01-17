@@ -6,7 +6,7 @@ from openai import OpenAI
 app = Flask(__name__)
 CORS(app)
 
-client = OpenAI(api_key=os.getenv("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"))
+client = OpenAI(api_key=os.getenv("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"))
 
 @app.route("/")
 def home():
