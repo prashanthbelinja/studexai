@@ -144,7 +144,8 @@ function sendMessage() {
     var text = document.getElementById("userInput").value;
     var mode = document.getElementById("mode").value;
 
-    fetch("http://127.0.0.1:5000/ask", {
+    fetch("https://studexai.onrender.com/ask", {
+
         method: "POST",
         headers: {"Content-Type": "application/json"},
         body: JSON.stringify({message: text, mode: mode})
