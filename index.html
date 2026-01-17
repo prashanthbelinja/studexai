@@ -2,161 +2,180 @@
 <html>
 <head>
 <title>Studex AI</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
 body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-    background: linear-gradient(to right, #e3f2ff, #f7fbff);
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: linear-gradient(to bottom, #e8f0ff, #ffffff);
 }
 
-.container {
-    max-width: 800px;
-    margin: auto;
-    padding: 30px;
+.app {
+  max-width: 600px;
+  margin: auto;
+  padding: 12px;
 }
 
 .header {
-    text-align: center;
+  text-align: center;
+  padding: 10px 0;
 }
 
 .logo {
-    width: 80px;
+  width: 60px;
 }
 
 h1 {
-    color: #2b4eff;
-    margin: 10px 0;
+  font-size: 24px;
+  color: #2b4eff;
+  margin: 5px 0;
 }
 
 .subtitle {
-    color: #555;
-    font-size: 16px;
+  font-size: 14px;
+  color: #666;
 }
 
 .chat-box {
-    background: white;
-    padding: 25px;
-    border-radius: 15px;
-    margin-top: 25px;
-    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+  background: white;
+  border-radius: 14px;
+  padding: 15px;
+  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
 }
 
-select, textarea, button {
-    width: 100%;
-    padding: 12px;
-    margin-top: 10px;
-    font-size: 16px;
-    border-radius: 8px;
-    border: 1px solid #ccc;
+.modes {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 12px;
+}
+
+.modeBtn {
+  flex: 1;
+  padding: 8px;
+  border-radius: 8px;
+  border: 1px solid #2b4eff;
+  background: white;
+  color: #2b4eff;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.modeBtn.active {
+  background: #2b4eff;
+  color: white;
 }
 
 textarea {
-    height: 120px;
-    resize: none;
+  width: 100%;
+  height: 110px;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+  padding: 10px;
+  font-size: 15px;
+  resize: none;
+  box-sizing: border-box;
 }
 
-button {
-    background: #2b4eff;
-    color: white;
-    border: none;
-    font-size: 18px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 15px;
+.askBtn {
+  width: 100%;
+  margin-top: 10px;
+  background: #2b4eff;
+  color: white;
+  border: none;
+  padding: 12px;
+  font-size: 16px;
+  font-weight: bold;
+  border-radius: 10px;
+  cursor: pointer;
 }
 
-button:hover {
-    background: #1a35c5;
+.askBtn:hover {
+  background: #1a35c5;
 }
 
 #output {
-    margin-top: 20px;
-    background: #f2f6ff;
-    padding: 15px;
-    border-radius: 10px;
-    min-height: 60px;
-    white-space: pre-wrap;
+  margin-top: 12px;
+  background: #f3f6ff;
+  padding: 12px;
+  border-radius: 10px;
+  font-size: 14px;
+  min-height: 60px;
+  white-space: pre-wrap;
 }
 
 .footer {
-    margin-top: 30px;
-    background: white;
-    padding: 20px;
-    border-radius: 12px;
-    font-size: 14px;
-    text-align: center;
-    color: #444;
+  text-align: center;
+  font-size: 12px;
+  color: #666;
+  margin-top: 15px;
 }
 </style>
 </head>
 
 <body>
 
-<div class="container">
+<div class="app">
 
-    <div class="header">
-        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712107.png" class="logo">
-        <h1>Studex AI</h1>
-        <div class="subtitle">Your Smart Educational AI Assistant</div>
+  <div class="header">
+    <img src="https://cdn-icons-png.flaticon.com/512/4712/4712107.png" class="logo">
+    <h1>Studex AI</h1>
+    <div class="subtitle">Your Educational AI Assistant</div>
+  </div>
+
+  <div class="chat-box">
+
+    <div class="modes">
+      <button class="modeBtn active" id="studentBtn" onclick="setMode('student')">Student</button>
+      <button class="modeBtn" id="teacherBtn" onclick="setMode('teacher')">Educator</button>
+      <button class="modeBtn" id="parentBtn" onclick="setMode('parent')">Parent</button>
     </div>
 
-    <div class="chat-box">
+    <textarea id="userInput" placeholder="Type your question here..."></textarea>
 
-        <select id="mode">
-            <option value="student">Student Mode</option>
-            <option value="teacher">Eudcator Mode</option>
-            <option value="parent">Parent Mode</option>
-        </select>
+    <button class="askBtn" onclick="sendMessage()">Ask Studex AI</button>
 
-        <textarea id="userInput" placeholder="Type your question here..."></textarea>
+    <div id="output">Studex AI response will appear here...</div>
 
-        <button onclick="sendMessage()">Ask Studex AI</button>
+  </div>
 
-        <div id="output">Studex AI response will appear here...</div>
-
-    </div>
-
-    <div class="footer">
-
-        <b>Studex AI</b> is an Educational Artificial Intelligence platform developed by 
-        <b>Prashanth Belinja</b> for learning and academic support.
-
-        <br><br>
-
-        Designed for Students, Teachers, and Educational Institutions.
-
-        <br><br>
-
-        This tool is created purely for educational and research purposes.  
-        It supports learning but does not replace teachers.
-
-        <br><br>
-
-        Copyright 2026 Studex AI | Developed by Prashanth Belinja
-
-    </div>
+  <div class="footer">
+    Studex AI © 2026 | Developed by Prashanth Belinja
+  </div>
 
 </div>
 
 <script>
+var currentMode = "student";
+
+function setMode(mode){
+  currentMode = mode;
+
+  document.getElementById("studentBtn").classList.remove("active");
+  document.getElementById("teacherBtn").classList.remove("active");
+  document.getElementById("parentBtn").classList.remove("active");
+
+  if(mode=="student") document.getElementById("studentBtn").classList.add("active");
+  if(mode=="teacher") document.getElementById("teacherBtn").classList.add("active");
+  if(mode=="parent") document.getElementById("parentBtn").classList.add("active");
+}
+
 function sendMessage() {
-    var text = document.getElementById("userInput").value;
-    var mode = document.getElementById("mode").value;
+  var text = document.getElementById("userInput").value;
 
-    fetch("https://studexai.onrender.com/ask", {
-
-        method: "POST",
-        headers: {"Content-Type": "application/json"},
-        body: JSON.stringify({message: text, mode: mode})
-    })
-    .then(res => res.json())
-    .then(data => {
-        document.getElementById("output").innerText = data.reply;
-    })
-    .catch(err => {
-        document.getElementById("output").innerText = "Error connecting to Studex AI.";
-    });
+  fetch("https://studexai.onrender.com/ask", {
+    method: "POST",
+    headers: {"Content-Type": "application/json"},
+    body: JSON.stringify({message: text, mode: currentMode})
+  })
+  .then(res => res.json())
+  .then(data => {
+    document.getElementById("output").innerText = data.reply;
+  })
+  .catch(err => {
+    document.getElementById("output").innerText = "Error connecting to Studex AI.";
+  });
 }
 </script>
 
