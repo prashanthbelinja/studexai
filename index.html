@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Studex AI</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: Arial, sans-serif;
+    background: linear-gradient(to right, #e3f2ff, #f7fbff);
+}
+
+.container {
+    max-width: 800px;
+    margin: auto;
+    padding: 30px;
+}
+
+.header {
+    text-align: center;
+}
+
+.logo {
+    width: 80px;
+}
+
+h1 {
+    color: #2b4eff;
+    margin: 10px 0;
+}
+
+.subtitle {
+    color: #555;
+    font-size: 16px;
+}
+
+.chat-box {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    margin-top: 25px;
+    box-shadow: 0px 4px 12px rgba(0,0,0,0.1);
+}
+
+select, textarea, button {
+    width: 100%;
+    padding: 12px;
+    margin-top: 10px;
+    font-size: 16px;
+    border-radius: 8px;
+    border: 1px solid #ccc;
+}
+
+textarea {
+    height: 120px;
+    resize: none;
+}
+
+button {
+    background: #2b4eff;
+    color: white;
+    border: none;
+    font-size: 18px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 15px;
+}
+
+button:hover {
+    background: #1a35c5;
+}
+
+#output {
+    margin-top: 20px;
+    background: #f2f6ff;
+    padding: 15px;
+    border-radius: 10px;
+    min-height: 60px;
+    white-space: pre-wrap;
+}
+
+.footer {
+    margin-top: 30px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    font-size: 14px;
+    text-align: center;
+    color: #444;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <div class="header">
+        <img src="https://cdn-icons-png.flaticon.com/512/4712/4712107.png" class="logo">
+        <h1>Studex AI</h1>
+        <div class="subtitle">Your Smart Educational AI Assistant</div>
+    </div>
+
+    <div class="chat-box">
+
+        <select id="mode">
+            <option value="student">Student Mode</option>
+            <option value="teacher">Eudcator Mode</option>
+            <option value="parent">Parent Mode</option>
+        </select>
+
+        <textarea id="userInput" placeholder="Type your question here..."></textarea>
+
+        <button onclick="sendMessage()">Ask Studex AI</button>
+
+        <div id="output">Studex AI response will appear here...</div>
+
+    </div>
+
+    <div class="footer">
+
+        <b>Studex AI</b> is an Educational Artificial Intelligence platform developed by 
+        <b>Prashanth Belinja</b> for learning and academic support.
+
+        <br><br>
+
+        Designed for Students, Teachers, and Educational Institutions.
+
+        <br><br>
+
+        This tool is created purely for educational and research purposes.  
+        It supports learning but does not replace teachers.
+
+        <br><br>
+
+        Copyright 2026 Studex AI | Developed by Prashanth Belinja
+
+    </div>
+
+</div>
+
+<script>
+function sendMessage() {
+    var text = document.getElementById("userInput").value;
+    var mode = document.getElementById("mode").value;
+
+    fetch("http://127.0.0.1:5000/ask", {
+        method: "POST",
+        headers: {"Content-Type": "application/json"},
+        body: JSON.stringify({message: text, mode: mode})
+    })
+    .then(res => res.json())
+    .then(data => {
+        document.getElementById("output").innerText = data.reply;
+    })
+    .catch(err => {
+        document.getElementById("output").innerText = "Error connecting to Studex AI.";
+    });
+}
+</script>
+
+</body>
+</html>
