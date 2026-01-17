@@ -3,15 +3,18 @@ from flask import Flask, request, jsonify
 from flask_cors import CORS
 from openai import OpenAI
 
+app = Flask(__name__)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 client = OpenAI(api_key=os.getenv("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"))
 
-app = Flask(__name__)
-CORS(app)
-
+@app.route("/")
+def home():
+    return "Studex AI backend running"
 
 @app.route("/ask", methods=["POST"])
 def ask():
-    data = request.json
+    data = request.get_json()
     user_text = data.get("message","")
     mode = data.get("mode","student")
 
@@ -32,8 +35,5 @@ def ask():
 
     return jsonify({"reply": response.choices[0].message.content})
 
-import os
-
 port = int(os.environ.get("PORT", 5000))
 app.run(host="0.0.0.0", port=port)
-
