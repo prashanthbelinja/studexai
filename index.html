@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html>
 <head>
-<title>Studex AI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
 <style>
@@ -11,109 +10,43 @@ body {
   background: linear-gradient(to bottom, #e8f0ff, #ffffff);
 }
 
-.app {
-  max-width: 600px;
-  margin: auto;
-  padding: 12px;
-}
-
 .header {
   text-align: center;
   padding: 10px 0;
 }
 
-.logo {
-  width: 60px;
+.main-logo {
+  width: 360px;
+  max-width: 90vw;
+  height: auto;
+  display: block;
+  margin: 0 auto;
 }
 
-h1 {
-  font-size: 24px;
-  color: #2b4eff;
-  margin: 5px 0;
+.header p {
+  margin: 4px 0 0 0;
+  line-height: 1.2;
 }
 
-.subtitle {
-  font-size: 14px;
-  color: #666;
-}
-
-.chat-box {
-  background: white;
-  border-radius: 14px;
-  padding: 15px;
-  box-shadow: 0 4px 10px rgba(0,0,0,0.08);
-}
-
-.modes {
-  display: flex;
-  gap: 6px;
-  margin-bottom: 12px;
-}
-
-.modeBtn {
-  flex: 1;
-  padding: 8px;
-  border-radius: 8px;
-  border: 1px solid #2b4eff;
-  background: white;
-  color: #2b4eff;
-  font-size: 14px;
-  font-weight: bold;
-  cursor: pointer;
-}
-
-.modeBtn.active {
-  background: #2b4eff;
-  color: white;
-}
-
-textarea {
-  width: 100%;
-  height: 110px;
-  border-radius: 10px;
-  border: 1px solid #ccc;
-  padding: 10px;
-  font-size: 15px;
-  resize: none;
-  box-sizing: border-box;
-}
-
-.askBtn {
-  width: 100%;
-  margin-top: 10px;
-  background: #2b4eff;
-  color: white;
-  border: none;
+.app {
+  max-width: 600px;
+  margin: auto;
   padding: 12px;
-  font-size: 16px;
-  font-weight: bold;
-  border-radius: 10px;
-  cursor: pointer;
-}
-
-.askBtn:hover {
-  background: #1a35c5;
-}
-
-#output {
-  margin-top: 12px;
-  background: #f3f6ff;
-  padding: 12px;
-  border-radius: 10px;
-  font-size: 14px;
-  min-height: 60px;
-  white-space: pre-wrap;
-}
-
-.footer {
-  text-align: center;
-  font-size: 12px;
-  color: #666;
-  margin-top: 15px;
 }
 </style>
 </head>
 
+<body>
+
+<div class="header">
+  <img src="logo.png" class="main-logo">
+  <p>Your Educational AI Assistant</p>
+</div>
+
+<div class="app">
+  <p>Studex AI interface will appear here.</p>
+</div>
+  
 <body>
 
 <div class="app">
@@ -181,3 +114,4 @@ function sendMessage() {
 
 </body>
 </html>
+
