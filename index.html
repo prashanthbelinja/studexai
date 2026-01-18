@@ -4,6 +4,8 @@
 <title>Studex AI</title>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<style>
+/* ================= LOGIN LOCK ================= */
 .locked {
   pointer-events: none;
   filter: blur(3px);
@@ -33,13 +35,8 @@
   box-shadow: 0 10px 25px rgba(43,78,255,0.2);
 }
 
-.loginBox h2 {
-  color: #2b4eff;
-}
-
-.loginBox p {
-  color: #555;
-}
+.loginBox h2 { color:#2b4eff; margin-bottom:8px; }
+.loginBox p { color:#555; margin-bottom:20px; }
 
 .loginBox button {
   width: 100%;
@@ -53,8 +50,11 @@
   color: white;
 }
 
- 
+.loginBox button:hover {
+  background: #1a35c5;
+}
 
+/* ================= APP UI ================= */
 body {
   margin: 0;
   font-family: Arial, sans-serif;
@@ -68,28 +68,21 @@ body {
 }
 
 .header {
-text-align: center;
-padding: 10px 0;
+  text-align: center;
+  padding: 10px 0;
 }
 
 .logo {
-width: 260px;
-max-width: 90vw;
-height: auto;
-display: block;
-margin: 0 auto 4px auto;
+  width: 260px;
+  max-width: 90vw;
+  display: block;
+  margin: 0 auto 4px;
 }
 
 .tagline {
-margin: 0;
-font-size: 15px;
-color: #555;
-line-height: 1.2;
-}
-
-.subtitle {
-  font-size: 14px;
-  color: #666;
+  margin: 0;
+  font-size: 15px;
+  color: #555;
 }
 
 .chat-box {
@@ -169,6 +162,9 @@ textarea {
 </style>
 </head>
 
+<body>
+
+<!-- ============ LOGIN OVERLAY ============ -->
 <div class="loginOverlay" id="loginOverlay">
   <div class="loginBox">
     <h2>Welcome to Studex AI</h2>
@@ -178,19 +174,13 @@ textarea {
   </div>
 </div>
 
-<div class="loginBox" style="text-align:center;margin-top:30px;">
-  <button onclick="googleLogin()" style="padding:12px 20px;font-size:16px;border-radius:10px;cursor:pointer;">
-    Login with Google
-  </button>
-</div>
-
+<!-- ============ APP ============ -->
 <div class="app locked" id="app">
 
-
- <div class="header">
-<img src="logo.png" alt="Studex AI Logo" class="logo">
-<p class="tagline">Your Educational AI Assistant</p>
-</div>
+  <div class="header">
+    <img src="logo.png" alt="Studex AI Logo" class="logo">
+    <p class="tagline">Your Educational AI Assistant</p>
+  </div>
 
   <div class="chat-box">
 
@@ -214,6 +204,7 @@ textarea {
 
 </div>
 
+<!-- ============ STUDEx AI BACKEND SCRIPT ============ -->
 <script>
 var currentMode = "student";
 
@@ -246,40 +237,37 @@ function sendMessage() {
   });
 }
 </script>
+
+<!-- ============ FIREBASE GOOGLE LOGIN ============ -->
 <script type="module">
-  // Import the functions you need from the SDKs you need
-  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
-  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js";
-  // TODO: Add SDKs for Firebase products that you want to use
-  // https://firebase.google.com/docs/web/setup#available-libraries
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-auth.js";
 
-  // Your web app's Firebase configuration
-  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-  const firebaseConfig = {
-    apiKey: "AIzaSyBk0_tnwDEXtKjSGNCNkHqhm5A2_qp4ZRY",
-    authDomain: "studex-ai.firebaseapp.com",
-    projectId: "studex-ai",
-    storageBucket: "studex-ai.firebasestorage.app",
-    messagingSenderId: "202053273548",
-    appId: "1:202053273548:web:19edfc231a27c6b640ff69",
-    measurementId: "G-7JVH9CB52B"
-  };
+const firebaseConfig = {
+  apiKey: "AIzaSyBk0_tnwDEXtKjSGNCNkHqhm5A2_qp4ZRY",
+  authDomain: "studex-ai.firebaseapp.com",
+  projectId: "studex-ai",
+  storageBucket: "studex-ai.appspot.com",
+  messagingSenderId: "202053273548",
+  appId: "1:202053273548:web:19edfc231a27c6b640ff69"
+};
 
-  // Initialize Firebase
-  const app = initializeApp(firebaseConfig);
-  const analytics = getAnalytics(app);
+const app = initializeApp(firebaseConfig);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
+
+window.googleLogin = function() {
+  signInWithPopup(auth, provider)
+    .then(result => {
+      document.getElementById("loginOverlay").style.display="none";
+      document.getElementById("app").classList.remove("locked");
+    })
+    .catch(err => {
+      alert("Login failed");
+      console.error(err);
+    });
+};
 </script>
+
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
