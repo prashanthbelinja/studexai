@@ -53,6 +53,28 @@
 .loginBox button:hover {
   background: #1a35c5;
 }
+.levels {
+  display: flex;
+  gap: 6px;
+  margin-bottom: 10px;
+}
+
+.levelBtn {
+  flex: 1;
+  padding: 6px;
+  border-radius: 14px;
+  border: 1px solid #2b4eff;
+  background: white;
+  color: #2b4eff;
+  font-size: 13px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.levelBtn.active {
+  background: #2b4eff;
+  color: white;
+}
 
 /* ================= APP UI ================= */
 body {
@@ -189,7 +211,11 @@ textarea {
       <button class="modeBtn" id="teacherBtn" onclick="setMode('teacher')">Educator</button>
       <button class="modeBtn" id="parentBtn" onclick="setMode('parent')">Parent</button>
     </div>
-
+<div class="levels">
+  <button class="levelBtn active" id="simpleBtn" onclick="setLevel('simple')">Simple</button>
+  <button class="levelBtn" id="detailedBtn" onclick="setLevel('detailed')">Detailed</button>
+  <button class="levelBtn" id="examBtn" onclick="setLevel('exam')">Exam-Ready</button>
+</div>
     <textarea id="userInput" placeholder="Type your question here..."></textarea>
 
     <button class="askBtn" onclick="sendMessage()">Ask Studex AI</button>
@@ -206,6 +232,19 @@ textarea {
 
 <!-- ============ STUDEx AI BACKEND SCRIPT ============ -->
 <script>
+var answerLevel = "simple";
+function setLevel(level){
+  answerLevel = level;
+
+  document.getElementById("simpleBtn").classList.remove("active");
+  document.getElementById("detailedBtn").classList.remove("active");
+  document.getElementById("examBtn").classList.remove("active");
+
+  if(level=="simple") document.getElementById("simpleBtn").classList.add("active");
+  if(level=="detailed") document.getElementById("detailedBtn").classList.add("active");
+  if(level=="exam") document.getElementById("examBtn").classList.add("active");
+}
+
 var currentMode = "student";
 
 function setMode(mode){
@@ -226,7 +265,12 @@ function sendMessage() {
   fetch("https://studexai.onrender.com/ask", {
     method: "POST",
     headers: {"Content-Type": "application/json"},
-    body: JSON.stringify({message: text, mode: currentMode})
+   body: JSON.stringify({
+  message: text,
+  mode: currentMode,
+  level: answerLevel
+})
+
   })
   .then(res => res.json())
   .then(data => {
@@ -271,3 +315,4 @@ window.googleLogin = function() {
 
 </body>
 </html>
+
