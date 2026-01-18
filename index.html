@@ -120,8 +120,13 @@ textarea {
 </head>
 
 <body>
+<div class="loginBox" style="text-align:center;margin-top:30px;">
+  <button onclick="googleLogin()" style="padding:12px 20px;font-size:16px;border-radius:10px;cursor:pointer;">
+    Login with Google
+  </button>
+</div>
 
-<div class="app">
+<div class="app" style="display:none;">
 
  <div class="header">
 <img src="logo.png" alt="Studex AI Logo" class="logo">
@@ -182,9 +187,32 @@ function sendMessage() {
   });
 }
 </script>
+<script type="module">
+  // Import the functions you need from the SDKs you need
+  import { initializeApp } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-app.js";
+  import { getAnalytics } from "https://www.gstatic.com/firebasejs/12.8.0/firebase-analytics.js";
+  // TODO: Add SDKs for Firebase products that you want to use
+  // https://firebase.google.com/docs/web/setup#available-libraries
 
+  // Your web app's Firebase configuration
+  // For Firebase JS SDK v7.20.0 and later, measurementId is optional
+  const firebaseConfig = {
+    apiKey: "AIzaSyBk0_tnwDEXtKjSGNCNkHqhm5A2_qp4ZRY",
+    authDomain: "studex-ai.firebaseapp.com",
+    projectId: "studex-ai",
+    storageBucket: "studex-ai.firebasestorage.app",
+    messagingSenderId: "202053273548",
+    appId: "1:202053273548:web:19edfc231a27c6b640ff69",
+    measurementId: "G-7JVH9CB52B"
+  };
+
+  // Initialize Firebase
+  const app = initializeApp(firebaseConfig);
+  const analytics = getAnalytics(app);
+</script>
 </body>
 </html>
+
 
 
 
