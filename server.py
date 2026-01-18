@@ -16,6 +16,15 @@ def home():
 def ask():
     try:
         data = request.get_json(force=True)
+level = data.get("level","simple")
+if level == "simple":
+    style = "Explain in very simple words suitable for a school student."
+elif level == "detailed":
+    style = "Explain clearly with examples and step by step."
+else:
+    style = "Explain in exam-ready format with headings and bullet points."
+
+prompt = f"{style}\n\nQuestion: {question}"
 
         user_text = data.get("message", "")
         mode = data.get("mode", "student")
@@ -38,3 +47,4 @@ def ask():
 
 port = int(os.environ.get("PORT", 5000))
 app.run(host="0.0.0.0", port=port)
+
